@@ -14,7 +14,7 @@
         android:text="x"
         android:textSize="18sp" />
 
-    <TextView
+    <EditText
         android:id="@+id/ActivityInputField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
