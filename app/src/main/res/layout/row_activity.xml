@@ -8,8 +8,8 @@
         android:id="@+id/textNumberActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginEnd="50dp"
         android:text="x"
         android:textSize="18sp" />
@@ -23,7 +23,7 @@
         android:layout_marginStart="-20dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginRight="9dp"
         android:layout_toEndOf="@+id/textNumberActivity"
         android:layout_toRightOf="@+id/textNumberActivity"
@@ -33,7 +33,7 @@
         android:focusable="true"
         android:fontFamily="sans-serif-light"
         android:inputType="textPersonName"
-        android:padding="2dp"
+        android:padding="10dp"
         android:textColor="#0B0A0A"
         android:textSize="18sp" />
 
@@ -41,7 +41,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="45dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="50dp"
         android:textSize="18sp"
