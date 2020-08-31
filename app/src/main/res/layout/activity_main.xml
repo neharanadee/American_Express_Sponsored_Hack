@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:paddingRight="20dp"
+    android:background="@color/DarkBlue">
 
 
 
@@ -19,23 +20,24 @@
         tools:layout_editor_absoluteX="20dp"
         tools:layout_editor_absoluteY="20dp">
 
-    <TextView
-        android:id="@+id/textViewTitleWhatToDo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:padding="2dp"
-        android:text="What would you like to do today?"
-        android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout"
-        android:layout_marginTop="10dp"
-        tools:layout_editor_absoluteX="20dp" />
+        <TextView
+            android:id="@+id/textViewTitleWhatToDo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto_bold"
+            android:padding="2dp"
+            android:text="What would you like to do today?"
+            android:textColor="@color/BabyBlue"
+            android:textSize="22sp"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout"
+            tools:layout_editor_absoluteX="20dp" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollViewForActivities"
         android:layout_width="370dp"
         android:layout_height="500dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/layout_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -72,13 +74,17 @@
         android:id="@+id/buttonToItinerary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Click to go to Next Page!"
+        android:text="Get my Plan!"
+        android:background="@drawable/layout_bg"
+        android:textSize="20sp"
+        android:fontFamily="@font/roboto_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.876" />
+        app:layout_constraintVertical_bias="0.876"
+        android:padding="5dp"/>
 
     </LinearLayout>
 

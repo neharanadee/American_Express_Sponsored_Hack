@@ -4,4 +4,10 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="White">#ffffff</color>
+    <color name="DarkBlue">#2e77bb</color>
+    <color name="DarkDarkBlue">#113063</color>
+    <color name="BabyBlue">#9BD4F5</color>
+    <color name="MayaBlue">#6CC4EE</color>
+    <color name="BatteryChargedBlue">#27AEE3</color>
+    <color name="CyanCornflowerBlue">#1D8ECE</color>
 </resources>
