@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InformationAboutPlace">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="-84dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+        <com.denzcoskun.imageslider.ImageSlider
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:iss_auto_cycle="true"
+            app:iss_period="3000"
+            app:iss_delay="0"
+            app:iss_corner_radius="5"
+            android:id="@+id/imageSlider"
+            app:iss_error_image="@color/DarkDarkBlue"
+            app:iss_placeholder="@color/DarkDarkBlue"
+            >
+
+
+
+        </com.denzcoskun.imageslider.ImageSlider>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="The first Department of Coffee and Social Affairs opened on London’s iconic Leather Lane Market in late 2010. It was the culmination of 18 months work spent searching for the perfect shop and perfecting our craft. Over the last 10 years, Department of Coffee and Social Affairs has been recognised on more that one occasion as the leading coffee company in the United Kindom at the Allegra Awards, most recently in 2019. We’ve never deviated from the belief that our love and enthusiasm for quality coffee would provide new coffee experiences for our customers. We will continue to make “proper” cups of coffee rather than, well, that other stuff."
+            android:textSize="18dp"
+
+            />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Opens: 8am. to 6pm."
+                android:textSize="22dp"
+                />
+
+            <Button
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reviews"
+                android:textSize="22dp"
+                android:id="@+id/reviewButton"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add to Memories"
+                android:textSize="22dp"
+                android:id="@+id/addToMemories"
+                />
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

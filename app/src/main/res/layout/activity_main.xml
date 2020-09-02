@@ -28,7 +28,7 @@
             android:fontFamily="@font/roboto_bold"
             android:padding="2dp"
             android:text="What would you like to do today?"
-            android:textColor="@color/BabyBlue"
+            android:textColor="@color/White"
             android:textSize="22sp"
             app:layout_constraintTop_toTopOf="@+id/linearLayout"
             tools:layout_editor_absoluteX="20dp" />
