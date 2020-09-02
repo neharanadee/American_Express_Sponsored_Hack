@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.amexhack.MainActivity;
 import com.example.amexhack.ItineraryDisplay;
+import com.google.android.material.tabs.TabItem;
 
 import java.util.ArrayList;
 
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences.Editor planResultsEditor;
 
     private static final String myPreference = "finalLocations";
+
+    Button memoriesPage;
 
 
 
@@ -127,6 +130,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        memoriesPage = findViewById(R.id.memories);
+        memoriesPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openReviews();
+            }
+        });
+
+    }
+
+    public void openReviews(){
+        Intent intent = new Intent(this, Reviews.class);
+        startActivity(intent);
     }
 
     public void openItineraryDisplay(){

@@ -1,17 +1,18 @@
 package com.example.amexhack;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -29,6 +30,19 @@ public class AddMemory extends AppCompatActivity {
 
     String currentPhotoPath;
 
+    Button save;
+
+    EditText description;
+
+    private SharedPreferences sharedPreferences;
+
+    SharedPreferences.Editor sharedPreferencesEditor;
+
+    private static final String descriptionOfImages = "descriptions";
+
+    private static final String imagesPath = "images";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -37,6 +51,9 @@ public class AddMemory extends AppCompatActivity {
 
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         System.out.println(storageDir);
+
+        sharedPreferences = this.getSharedPreferences(descriptionOfImages, Context.MODE_PRIVATE);
+        sharedPreferencesEditor = sharedPreferences.edit();
 
 
         addPhoto = findViewById(R.id.takePhoto);
@@ -49,7 +66,26 @@ public class AddMemory extends AppCompatActivity {
         });
 
         imageView = findViewById(R.id.imageOfPhoto);
+
+        save = findViewById(R.id.save);
+
+
+
+        save.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                saveMemory();
+                goBack();
+
+
+            }
+        });
+
+        description = findViewById(R.id.description);
+
     }
+
+
 
 
     public void takePictureIntent(){
@@ -122,5 +158,39 @@ public class AddMemory extends AppCompatActivity {
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
+    }
+
+
+
+    public void saveMemory(){
+
+        String descriptions = "";
+        String images = "";
+
+        if (sharedPreferences.contains(descriptionOfImages)){
+            descriptions = sharedPreferences.getString(descriptionOfImages,"");
+            images= sharedPreferences.getString(imagesPath,"");
+            descriptions += "_"+ description.getText().toString() ;
+            images += ";"+ currentPhotoPath;
+        }
+        else{
+            descriptions = description.getText().toString();
+            images = currentPhotoPath;
+        }
+
+
+
+
+        sharedPreferencesEditor.putString(descriptionOfImages, descriptions);
+        sharedPreferencesEditor.putString(imagesPath, images);
+        sharedPreferencesEditor.commit();
+
+
+    }
+
+    public void goBack(){
+        Intent intent = new Intent(this, InformationAboutPlace.class);
+        startActivity(intent);
+
     }
 }
