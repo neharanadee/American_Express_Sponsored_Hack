@@ -88,9 +88,24 @@ public class Reviews extends AppCompatActivity {
 
         File f = new File(imagesPath);
         Uri contentUri = Uri.fromFile(f);
+        ImageView image = new ImageView(this);
+        image.setImageURI(contentUri);
+
+        boolean portrait = false;
+        if (image.getHeight() > image.getWidth()){
+            portrait  = true;
+        }
+
+
 
         final ImageView imageView = addView.findViewById(R.id.imageTakenBefore);
         imageView.setImageURI(contentUri);
+
+        if (portrait){
+            imageView.setRotation(90);
+        }
+
+
 
         final TextView textView = addView.findViewById(R.id.textDescription);
         textView.setText(imageDescription);
