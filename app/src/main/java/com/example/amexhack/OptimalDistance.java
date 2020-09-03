@@ -1,5 +1,15 @@
 package com.example.amexhack;
 
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+import com.example.amexhack.MainActivity.*;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
@@ -20,7 +30,7 @@ import org.apache.http.client.HttpClient;
 import org.json.simple.parser.JSONParser;
 import java.io.InputStream;
 
-class OptimalDistance{
+class OptimalDistance  {
 
 
     class Place{
@@ -129,92 +139,10 @@ class OptimalDistance{
     }
 
 
-    private static JSONObject sendRequest(String url){
-
-        StringBuilder stringBuilder = new StringBuilder();
-
-        try {
-
-            HttpPost httppost = new HttpPost(url);
-
-            HttpClient client = new DefaultHttpClient();
-            HttpResponse response;
-            stringBuilder = new StringBuilder();
-
-
-            response = client.execute(httppost);
-            HttpEntity entity = response.getEntity();
-            InputStream stream = entity.getContent();
-            int b;
-            while ((b = stream.read()) != -1) {
-                stringBuilder.append((char) b);
-            }
-
-        } catch (ClientProtocolException e) {
-        } catch (IOException e) {
-        }
-
-        JSONObject jsonObject = new JSONObject();
-        try {
-
-            jsonObject = new JSONObject(stringBuilder.toString());
-
-
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return jsonObject;
-
-    }
 
 
 
-    private Place getTopN(double latitude, double longitude, String category, String subcategory, int radius, String fullFormForCategory) throws JSONException {
-        System.out.println("STARTING!!!!!")
-        String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+latitude+","+longitude+"&radius="+radius+"&type="+category+"&keyword="+subcategory+"&key="+api_key+"";
-//        JSONArray allPlaces = (JSONArray)sendRequest(url).get("results");
-        TaskDirectionRequest caller = new TaskDirectionRequest();
-        String result = caller.doInBackground(url);
-        System.out.println("RESULT FROM TASKDIRECITIONREQUEST "  + result);
 
-        JSONObject jsonObject = new JSONObject();
-        try {
-
-            jsonObject = new JSONObject(result);
-
-
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        System.out.println("CONVERTING!!!!!")
-        JSONArray allPlaces = (JSONArray) jsonObject;
-
-        System.out.println("ENTERING LOOP!!!!!")
-
-
-        for (int i = 0; i < allPlaces.length() ; i++){
-
-            System.out.println("LOOP!!!!!")
-            JSONObject currentElement = (JSONObject) allPlaces.get(i);
-            String name = (String) currentElement.get("name");
-
-            if(this.allCategoriesWithPlaces.get(fullFormForCategory).contains(name) == true) {
-                System.out.println("match");
-                JSONObject geometry = (JSONObject) currentElement.get("geometry");
-                JSONObject location = (JSONObject) geometry.get("location");
-                Double long_current = (Double) location.get("lng");
-                Double lat_current = (Double) location.get("lat");
-                Place newPlace = new Place(name, lat_current, long_current);
-                System.out.println(name + " : " + lat_current + " : " + long_current);
-                return newPlace;
-            }
-        }
-
-        return null;
-    }
 
 
     public ArrayList<Place> findAllPlaces(ArrayList<String> categories, double latitude, double longitude) throws JSONException {
@@ -245,83 +173,4 @@ class OptimalDistance{
 
 
 
-//    public static void main(String[] args) {
-//        try {
-//
-//            OptimalDistance optimalDistance = new OptimalDistance();
-//
-//            double longi = 0.1378;
-//            double latit = 51.5134;
-//
-//            ArrayList<String> sampleToDo = new ArrayList<String>();
-//            sampleToDo.add("Dining: Bar/Pub");
-//            sampleToDo.add("Services: Beauty Salon");
-//            sampleToDo.add("Services: Nail Bar");
-//
-//            ArrayList<Place> result = optimalDistance.findAllPlaces(sampleToDo, latit, longi);
-//
-//            for(Place element : result){
-//                if(element != null) {
-//                    System.out.println(element.getName());
-//                }
-//                else{
-//                    System.out.println("null");
-//                }
-//            }
-//
-//        } catch (Exception ex){
-//
-//            System.out.println("err " + ex.getStackTrace().toString());
-//        }
-//    }
-
-    private String requestDirection(String requestedUrl) {
-        String responseString = "";
-        InputStream inputStream = null;
-        HttpURLConnection httpURLConnection = null;
-        try {
-            URL url = new URL(requestedUrl);
-            httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.connect();
-
-            inputStream = httpURLConnection.getInputStream();
-            InputStreamReader reader = new InputStreamReader(inputStream);
-            BufferedReader bufferedReader = new BufferedReader(reader);
-
-            StringBuffer stringBuffer = new StringBuffer();
-            String line = "";
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuffer.append(line);
-            }
-            responseString = stringBuffer.toString();
-            bufferedReader.close();
-            reader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        httpURLConnection.disconnect();
-        return responseString;
-    }
-
-    public class TaskDirectionRequest extends AsyncTask<String, Void, String> {
-
-        public String doInBackground(String url) {
-            System.out.println("DO IN BRACKGROUND FN!!!!!")
-            String responseString = "";
-            try {
-                responseString = requestDirection(url);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return responseString;
-        }
-    }
 }
