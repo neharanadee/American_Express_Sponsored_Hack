@@ -1,6 +1,6 @@
 package com.example.amexhack;
 import android.os.Bundle;
-import com.example.amexhack.OptimalDistance.*;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -12,36 +12,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.example.amexhack.Testing2;
 
-import com.example.amexhack.MainActivity;
-import com.example.amexhack.ItineraryDisplay;
-import com.google.android.material.tabs.TabItem;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Map;
 
 import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
@@ -169,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openReviews(){
-        Intent intent = new Intent(this, Reviews.class);
+        Intent intent = new Intent(this, MemoriesPage.class);
         startActivity(intent);
     }
 

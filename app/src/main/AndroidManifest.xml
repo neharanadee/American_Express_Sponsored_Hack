@@ -27,7 +27,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MapActivity"></activity>
         <activity android:name=".AddMemory" />
-        <activity android:name=".Reviews" />
+        <activity android:name=".MemoriesPage" />
         <activity
             android:name=".InformationAboutPlace"
             android:parentActivityName=".ItineraryDisplay" />

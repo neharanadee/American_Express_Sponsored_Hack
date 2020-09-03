@@ -13,11 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.File;
-import java.util.ArrayList;
 
-import javax.crypto.AEADBadTagException;
-
-public class Reviews extends AppCompatActivity {
+public class MemoriesPage extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
 
@@ -36,7 +33,7 @@ public class Reviews extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reviews);
+        setContentView(R.layout.activity_memories);
 
 
 
