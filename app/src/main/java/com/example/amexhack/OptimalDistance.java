@@ -172,9 +172,32 @@ class OptimalDistance{
 
 
     private Place getTopN(double latitude, double longitude, String category, String subcategory, int radius, String fullFormForCategory) throws JSONException {
+        System.out.println("STARTING!!!!!")
         String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+latitude+","+longitude+"&radius="+radius+"&type="+category+"&keyword="+subcategory+"&key="+api_key+"";
-        JSONArray allPlaces = (JSONArray)sendRequest(url).get("results");
+//        JSONArray allPlaces = (JSONArray)sendRequest(url).get("results");
+        TaskDirectionRequest caller = new TaskDirectionRequest();
+        String result = caller.doInBackground(url);
+        System.out.println("RESULT FROM TASKDIRECITIONREQUEST "  + result);
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+
+            jsonObject = new JSONObject(result);
+
+
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        System.out.println("CONVERTING!!!!!")
+        JSONArray allPlaces = (JSONArray) jsonObject;
+
+        System.out.println("ENTERING LOOP!!!!!")
+
+
         for (int i = 0; i < allPlaces.length() ; i++){
+
+            System.out.println("LOOP!!!!!")
             JSONObject currentElement = (JSONObject) allPlaces.get(i);
             String name = (String) currentElement.get("name");
 
@@ -286,5 +309,19 @@ class OptimalDistance{
         }
         httpURLConnection.disconnect();
         return responseString;
+    }
+
+    public class TaskDirectionRequest extends AsyncTask<String, Void, String> {
+
+        public String doInBackground(String url) {
+            System.out.println("DO IN BRACKGROUND FN!!!!!")
+            String responseString = "";
+            try {
+                responseString = requestDirection(url);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return responseString;
+        }
     }
 }
