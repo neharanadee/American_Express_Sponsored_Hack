@@ -13,6 +13,10 @@ import com.example.amexhack.MainActivity;
 import com.example.amexhack.ItineraryDisplay;
 import com.example.amexhack.InformationAboutPlace;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class ItineraryDisplay extends AppCompatActivity {
 
     private Button viewMoreButton;
@@ -57,6 +61,9 @@ public class ItineraryDisplay extends AppCompatActivity {
         String variableThatContainsAnswers = "Department of Coffee";
         viewThisPageEditor.putString(myPreference, variableThatContainsAnswers);
         //CALL THE FUNCTION THAT RETURNS THE BEST LOCATIONS THAT THE USER SHOULD VISIT
+
         viewThisPageEditor.commit();
     }
+
+
 }

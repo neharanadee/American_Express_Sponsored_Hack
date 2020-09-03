@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,11 +15,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.example.amexhack.Testing2;
 
 import com.example.amexhack.MainActivity;
 import com.example.amexhack.ItineraryDisplay;
 import com.google.android.material.tabs.TabItem;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -28,7 +31,8 @@ import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 public class MainActivity extends AppCompatActivity {
 
     private Button nextPageButton;
-
+    private TextView title;
+    public String TAG = "OKAY A";
     private LinearLayout scrollableLayout;
 
     private Button addActivityButton;
@@ -117,10 +121,15 @@ public class MainActivity extends AppCompatActivity {
         nextPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openItineraryDisplay();
+
+                try {
+                    openItineraryDisplay();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
-
+        title = findViewById(R.id.textViewTitleWhatToDo);
         scrollableLayout = findViewById(R.id.inScrollable);
 
         addActivityButton= findViewById(R.id.addNewActivity);
@@ -146,19 +155,26 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openItineraryDisplay(){
+    public void openItineraryDisplay() throws IOException {
+        Testing2 t = new Testing2();
+        String result = t.Hello();
+        title.setText(result);
         saveInfoToPreferences();
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
+
+//        Intent intent = new Intent(this, ItineraryDisplay.class);
+//        startActivity(intent);
+
     }
 
-    public void saveInfoToPreferences(){
+    public void saveInfoToPreferences() throws IOException {
         String allActivities ="";
 
         int n = 0;
-
-
-        String variableThatContainsAnswers = "";
+        String variableThatContainsAnswers = getBestLocations();
+        Log.d(TAG, "variable that contains answs: " + variableThatContainsAnswers);
+        System.out.println(variableThatContainsAnswers);
         planResultsEditor.putString(myPreference, variableThatContainsAnswers);
         //CALL THE FUNCTION THAT RETURNS THE BEST LOCATIONS THAT THE USER SHOULD VISIT
         planResultsEditor.commit();
@@ -214,6 +230,42 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    public String getBestLocations() throws IOException {
+        StringBuilder sb = new StringBuilder();
+        try {
+
+            OptimalDistance optimalDistance = new OptimalDistance();
+
+            double longi = 0.1378;
+            double latit = 51.5134;
+
+            ArrayList<String> sampleToDo = new ArrayList<String>();
+            sampleToDo.add("Dining: Bar/Pub");
+            sampleToDo.add("Services: Beauty Salon");
+            sampleToDo.add("Services: Nail Bar");
+
+            ArrayList<OptimalDistance.Place> result = optimalDistance.findAllPlaces(sampleToDo, latit, longi);
+
+            for(OptimalDistance.Place element : result){
+                if(element != null) {
+                    sb.append(element.name);
+                    //System.out.println(element.getName());
+                }
+                else{
+                    sb.append("null");
+                    //System.out.println("null");
+                }
+                sb.append(",");
+            }
+
+        } catch (Exception ex){
+            System.out.println("error type" + ex.getClass());
+            System.out.println("error stack" + ex.getStackTrace());
+            System.out.println("err " + ex.getMessage());
+        }
+        return sb.toString();
+    }
+
 
 
 
