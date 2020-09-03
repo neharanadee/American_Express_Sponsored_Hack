@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AmexHack</string>
+    <string name="maps_api_key">AIzaSyATPwWeg_lhIP1Lh3Mls3U_WSaY3AI21G4</string>
 </resources>

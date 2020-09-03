@@ -20,6 +20,7 @@ import com.example.amexhack.ItineraryDisplay;
 import com.google.android.material.tabs.TabItem;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
@@ -147,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openItineraryDisplay(){
         saveInfoToPreferences();
-        Intent intent = new Intent(this, ItineraryDisplay.class);
+        Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
 
