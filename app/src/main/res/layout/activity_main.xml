@@ -7,11 +7,18 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:background="@color/DarkBlue">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="-84dp"
+        tools:ignore="MissingConstraints">
 
 
 
 
     <LinearLayout
+
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -113,7 +120,7 @@
 
 
     </LinearLayout>
-
+    </ScrollView>
 
 
 

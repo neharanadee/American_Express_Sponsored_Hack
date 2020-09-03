@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-
+    useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.example.amexhack"
         minSdkVersion 16
@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.googlecode.json-simple:json-simple:1.1'
     implementation 'com.github.MdFarhanRaja:SearchableSpinner:1.2'
     implementation 'com.github.denzcoskun:ImageSlideshow:0.0.7'
 
@@ -60,6 +61,9 @@ dependencies {
     implementation 'com.google.android.libraries.maps:maps:3.1.0-beta'
     implementation 'com.google.android.libraries.places:places:2.3.0'
 
+    // api calls
+    implementation 'com.android.volley:volley:1.1.0'
+    implementation 'com.google.code.gson:gson:2.4'
     // GMS
     gmsImplementation 'com.google.android.gms:play-services-maps:17.0.0'
 
