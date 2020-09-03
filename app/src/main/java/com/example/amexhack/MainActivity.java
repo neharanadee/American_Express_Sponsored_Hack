@@ -163,9 +163,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openItineraryDisplay() throws IOException {
-        Testing2 t = new Testing2();
-        String result = t.Hello();
-        title.setText(result);
+        //Testing2 t = new Testing2();
+        //String result = t.Hello();
+        //title.setText(result);
         saveInfoToPreferences();
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);

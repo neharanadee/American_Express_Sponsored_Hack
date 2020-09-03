@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.amexhack.yelpapi.Review;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +73,9 @@ public class InformationAboutPlace extends AppCompatActivity {
     }
 
     public void openReviewPages(){
-        Intent intent;
+
+        Intent intent = new Intent(this, Review.class);
+        startActivity(intent);
     }
 
     public void openMemoryPage(){
