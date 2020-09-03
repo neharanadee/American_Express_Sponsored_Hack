@@ -13,11 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.File;
-import java.util.ArrayList;
 
-import javax.crypto.AEADBadTagException;
-
-public class Reviews extends AppCompatActivity {
+public class MemoriesPage extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
 
@@ -36,7 +33,7 @@ public class Reviews extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reviews);
+        setContentView(R.layout.activity_memories);
 
 
 
@@ -88,9 +85,24 @@ public class Reviews extends AppCompatActivity {
 
         File f = new File(imagesPath);
         Uri contentUri = Uri.fromFile(f);
+        ImageView image = new ImageView(this);
+        image.setImageURI(contentUri);
+
+        boolean portrait = false;
+        if (image.getHeight() > image.getWidth()){
+            portrait  = true;
+        }
+
+
 
         final ImageView imageView = addView.findViewById(R.id.imageTakenBefore);
         imageView.setImageURI(contentUri);
+
+        if (portrait){
+            imageView.setRotation(90);
+        }
+
+
 
         final TextView textView = addView.findViewById(R.id.textDescription);
         textView.setText(imageDescription);
