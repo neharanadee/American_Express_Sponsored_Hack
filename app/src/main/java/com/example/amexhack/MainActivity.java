@@ -24,6 +24,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.ArrayList;
 
 import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
@@ -244,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
             sampleToDo.add("Services: Beauty Salon");
             sampleToDo.add("Services: Nail Bar");
 
-            ArrayList<OptimalDistance.Place> result = findAllPlaces(sampleToDo, latit, longi);
+            ArrayList<Place> result = findAllPlaces(sampleToDo, latit, longi);
 
             for(Place element : result){
                 if(element != null) {
@@ -296,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
 
     HashMap<String, HashSet<String>> allCategoriesWithPlaces = new HashMap<String, HashSet<String>>();
 
-    public constructHashMap() throws IOException, ParseException {
+    public void constructHashMap() throws IOException, ParseException {
         try {
 
             String JSONString = "{\n" +
@@ -366,7 +372,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public ArrayList<Place> findAllPlaces(ArrayList<String> categories, double latitude, double longitude) throws JSONException {
+    public ArrayList<Place> findAllPlaces(ArrayList<String> categories, double latitude, double longitude) throws JSONException, IOException, ParseException {
         constructHashMap();
         ArrayList<Place> result = new ArrayList<Place>();
         double startLatitude = latitude;
@@ -433,7 +439,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject location = (JSONObject) geometry.get("location");
                 Double long_current = (Double) location.get("lng");
                 Double lat_current = (Double) location.get("lat");
-                OptimalDistance.Place newPlace = new OptimalDistance.Place(name, lat_current, long_current);
+                Place newPlace = new Place(name, lat_current, long_current);
                 System.out.println(name + " : " + lat_current + " : " + long_current);
                 return newPlace;
             }
