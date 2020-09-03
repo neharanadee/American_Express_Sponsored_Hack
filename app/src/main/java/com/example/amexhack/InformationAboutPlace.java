@@ -44,7 +44,7 @@ public class InformationAboutPlace extends AppCompatActivity {
         reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openItineraryDisplay();
+                openReviewPages();
             }
         });
 
@@ -69,6 +69,10 @@ public class InformationAboutPlace extends AppCompatActivity {
         Intent intent = new Intent(this, MemoriesPage.class);
         startActivity(intent);
 
+    }
+
+    public void openReviewPages(){
+        Intent intent;
     }
 
     public void openMemoryPage(){
