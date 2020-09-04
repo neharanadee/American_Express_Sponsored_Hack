@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Open now"
+            android:id="@+id/openNow"
             android:textSize="20dp"
             android:layout_gravity="right"/>
 
@@ -30,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Place Name"
+            android:id="@+id/placeName"
             android:textSize="24dp"
             />
 

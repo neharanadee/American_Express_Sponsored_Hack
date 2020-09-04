@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,6 +50,7 @@ import com.google.android.gms.tasks.Task;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -162,7 +166,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
     }
 
+
+
+
     public void callApi(){
+
+
 
 
         for (int x =0; x<placesToVisit.size(); x++){
@@ -217,13 +226,31 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
 
-    public void placeOnToView(String imageUrl, String placeName, Boolean openNow){
+    public void placeOnToView(String imageUrl, String placeName, Boolean openNow) {
         LayoutInflater layoutInflater =
                 (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View addView = layoutInflater.inflate(R.layout.row_intinerary,null);
 
-        final ImageView imageView = addView.findViewById(R.id.imageOfPlace);
-        
+//        final ImageView imageView = addView.findViewById(R.id.imageOfPlace);
+//        try {
+//            URL url = new URL(imageUrl);
+//            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+//            imageView.setImageBitmap(bmp);
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
+
+        final TextView placeNameTextView  = addView.findViewById(R.id.placeName);
+        placeNameTextView.setText(placeName);
+
+        final TextView openTextView = addView.findViewById(R.id.openNow);
+        if (openNow){
+            openTextView.setText("Open Now");
+        }else{
+            openTextView.setText("Closed");
+        }
+
 
 
 
