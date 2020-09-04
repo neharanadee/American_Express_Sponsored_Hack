@@ -137,6 +137,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         getLocationPermission();
 
+        for(Place place : AllPlaces){
+            System.out.println("CHECK THE NUMBER OF DECIMAL PLACES NEEDED");
+            System.out.println(place.latitude);
+            System.out.println(place.longitude);
+            System.out.println(place.name);
+        }
+
         itineraryScroller = findViewById(R.id.scrollerForItinerary);
 
         //SET UP ARRAY TO TEST OUT ITINERARY DISPLAY
@@ -170,11 +177,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
     public void callApi(){
-
-
-
+        ArrayList<VisitingPlace> visitingPlaces = new ArrayList<>();
 
         for (int x =0; x<placesToVisit.size(); x++){
+
+
+
 
 
             Retrofit retrofit = new Retrofit.Builder()
@@ -202,7 +210,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     String id = restaurant.getId();
 
-                    placeOnToView(restaurant.getImageUrl(), restaurant.getName(), restaurant.getOpenNow());
+                    visitingPlaces.add(new VisitingPlace(restaurant.getName(), restaurant.getImageUrl(), restaurant.getOpenNow()));
+
+                    //placeOnToView(restaurant.getImageUrl(), restaurant.getName(), restaurant.getOpenNow());
 
 
 
@@ -222,6 +232,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         }
 
+        for (VisitingPlace place : visitingPlaces){
+            //placeOnToView(place.imageURL, place.placeName, place.openNow);
+        }
+
 
     }
 
@@ -231,15 +245,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View addView = layoutInflater.inflate(R.layout.row_intinerary,null);
 
-//        final ImageView imageView = addView.findViewById(R.id.imageOfPlace);
-//        try {
-//            URL url = new URL(imageUrl);
-//            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-//            imageView.setImageBitmap(bmp);
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//        }
+        final ImageView imageView = addView.findViewById(R.id.imageOfPlace);
+        try {
+            URL url = new URL(imageUrl);
+            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            imageView.setImageBitmap(bmp);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         final TextView placeNameTextView  = addView.findViewById(R.id.placeName);
         placeNameTextView.setText(placeName);
