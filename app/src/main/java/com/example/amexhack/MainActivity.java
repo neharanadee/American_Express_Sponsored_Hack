@@ -22,6 +22,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     SpinnerDialog spinnerDialog;
 
-    ArrayList<String> activities = new ArrayList<>();
+    ArrayList<TextView> activities = new ArrayList<>();
 
     private SharedPreferences planResults;
 
@@ -170,7 +171,12 @@ public class MainActivity extends AppCompatActivity {
 
         saveInfoToPreferences();
 
-        LoadPlaces.listOfAllTheCategories = activities;
+        ArrayList<String> activityToString = new ArrayList<>();
+        for (TextView activity: activities){
+            activityToString.add(activity.getText().toString());
+        }
+
+        LoadPlaces.listOfAllTheCategories = activityToString;
         System.out.println("ACTIVITIES !!!!!!!!!");
         System.out.println(activities);
         LoadPlaces.startLatitude = 51.5134;
@@ -238,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        activities.add(activity.getText().toString());
+        activities.add(activity);
 
 
 
