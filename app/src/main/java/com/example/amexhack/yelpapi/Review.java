@@ -2,10 +2,17 @@ package com.example.amexhack.yelpapi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.amexhack.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -26,6 +33,8 @@ public class Review extends AppCompatActivity {
 
     ArrayList<YelpReview> reviews = new ArrayList<>();
 
+    LinearLayout reviewScroller;
+
 
 
 
@@ -33,6 +42,10 @@ public class Review extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
+
+        reviewScroller = findViewById(R.id.reviewsScrollView);
+
+
 
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -96,16 +109,13 @@ public class Review extends AppCompatActivity {
                 reviews.addAll(result.getReviews());
                 System.out.println(reviews);
 
+                for (YelpReview review: reviews){
+
+                    System.out.println(review.getUser().getName()+ review.getRating()+ review.getText());
+                    addReview(review.getUser().getName(), review.getRating(), review.getText());
+                }
+
                 //For each review call the inflator function and display on screen
-                //restaurant= result.getRestaurants().get(0);
-                //System.out.println(restaurant);
-
-                //System.out.println("Name = "+ restaurant.getName());
-
-                //id = restaurant.getId();
-
-
-
             }
 
             @Override public void onFailure(Call<YelpReviewsOfPlace> call, Throwable t) {
@@ -115,6 +125,26 @@ public class Review extends AppCompatActivity {
         });
 
 
+
+    }
+
+
+    public void addReview(String username, int rating, String description){
+
+        LayoutInflater layoutInflater =
+                (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View addView = layoutInflater.inflate(R.layout.row_reviews, null);
+
+        final TextView usernameTextView = addView.findViewById(R.id.username);
+        usernameTextView.setText(username);
+
+        final TextView ratingTextView = addView.findViewById(R.id.rating);
+        ratingTextView.setText(Integer.toString(rating)+" / 5");
+
+        final TextView descriptionTextView = addView.findViewById(R.id.reviewText);
+        descriptionTextView.setText(description);
+
+        reviewScroller.addView(addView);
 
     }
 
