@@ -310,17 +310,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void createMarker() {
-        for (int i = 0; i < coordinateArray.length; i++) {
-            gMap.addMarker(new MarkerOptions().position(latlngArray[i]).title(String.valueOf(i+1)));
+        for (int i = 0; i < AllPlaces.size(); i++) {
+            gMap.addMarker(new MarkerOptions().position(latlngArray[i]).title(AllPlaces.get(i).getName()));
 
         }
     }
 
     private void createCoordinateArray() {
-        coordinateArray = new double[][]{{51.525280, -0.136347}, {51.528557, -0.132258}, {51.526966, -0.125864}, {51.530882, -0.119044}};
-        latlngArray = new LatLng[coordinateArray.length];
+//        coordinateArray = new double[][]{{51.525280, -0.136347}, {51.528557, -0.132258}, {51.526966, -0.125864}, {51.530882, -0.119044}};
+        latlngArray = new LatLng[AllPlaces.size()];
+        System.out.println("THIS IS SIZE " + AllPlaces.size());
         for (int i = 0; i < latlngArray.length; i++) {
-            latlngArray[i] = new LatLng(coordinateArray[i][0], coordinateArray[i][1]);
+//            System.out.println("CORDSSSSSSSSSS!!!!!!!!!!!!!!!!!!!!");
+            System.out.println(AllPlaces.get(i).getLatitude()  + " : " +  AllPlaces.get(i).getLongitude());
+            latlngArray[i] = new LatLng( AllPlaces.get(i).getLongitude(), AllPlaces.get(i).getLatitude());
         }
     }
 

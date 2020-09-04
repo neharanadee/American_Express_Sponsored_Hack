@@ -184,6 +184,7 @@ public class LoadPlaces extends AppCompatActivity {
     public void openMapsDisplay() throws IOException {
 
         MapActivity.AllPlaces = placeList;
+        System.out.println("ALL PLACE LIST " + placeList.size());
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
 

@@ -164,15 +164,19 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void openItineraryDisplay() throws IOException {
-        ArrayList<String> listOfAllTheCategories = new ArrayList<String>();
-        listOfAllTheCategories.add("Services: Nail Bar");
-        listOfAllTheCategories.add("Dining: Cafe/Restaurant");
+//        ArrayList<String> listOfAllTheCategories = new ArrayList<String>();
+//        listOfAllTheCategories.add("Services: Nail Bar");
+//        listOfAllTheCategories.add("Dining: Cafe/Restaurant");
 
-        LoadPlaces.listOfAllTheCategories = listOfAllTheCategories;
+        saveInfoToPreferences();
+
+        LoadPlaces.listOfAllTheCategories = activities;
+        System.out.println("ACTIVITIES !!!!!!!!!");
+        System.out.println(activities);
         LoadPlaces.startLatitude = 51.5134;
         LoadPlaces.startLongitude = -0.1312;
 
-        saveInfoToPreferences();
+
 //        Intent intent = new Intent(this, MapActivity.class);
         Intent intent = new Intent(this, LoadPlaces.class);
         startActivity(intent);
