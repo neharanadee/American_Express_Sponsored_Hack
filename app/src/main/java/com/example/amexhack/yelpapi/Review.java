@@ -29,7 +29,7 @@ public class Review extends AppCompatActivity {
     private String API_KEY = "LWAv17INzFEQdx0yv-OisJHiqJnSRtRA3nHr_IJVfNgPWCWY0D_8y85km7Ifo6NtWROpFfk8JLAKFxbqS6gyXaFWMPvrTrAg8Gh9SwEXYnixrKzUwqMaar5g9yNRX3Yx";
 
     private String id = "7fnq7-pePPEM2WaZ4CLg0g";
-    YelpRestaurant restaurant;
+
 
     ArrayList<YelpReview> reviews = new ArrayList<>();
 
@@ -48,43 +48,7 @@ public class Review extends AppCompatActivity {
 
 
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        YelpService yelpService = retrofit.create(YelpService.class);
-        yelpService.searchRestaurants("Bearer "+ API_KEY,"Department of Coffee", "London").enqueue(new Callback<YelpSearchResult>() {
-
-            @Override
-            public void onResponse(Call<YelpSearchResult> call, Response<YelpSearchResult> response) {
-                Log.i(TAG, "onResponse "+response);
-                YelpSearchResult result = response.body();
-
-                if (result == null){
-                    Log.w(TAG, "Did not receive valid response");
-                    return;
-
-                }
-                restaurant= result.getRestaurants().get(0);
-                System.out.println(restaurant);
-
-                System.out.println("Name = "+ restaurant.getName());
-
-                id = restaurant.getId();
-
-
-
-            }
-
-            @Override public void onFailure(Call<YelpSearchResult> call, Throwable t) {
-                Log.i(TAG, "onFailure "+t);
-
-            }
-        });
-
-
-        System.out.println(BASE_URL+id+"/");
 
         Retrofit retrofit2 = new Retrofit.Builder()
                 .baseUrl(BASE_URL+id+"/")

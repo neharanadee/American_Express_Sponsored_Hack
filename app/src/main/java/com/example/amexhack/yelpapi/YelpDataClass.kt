@@ -12,7 +12,7 @@ data class YelpRestaurant(
         val id: String,
         val rating: Double,
         val price: String,
-        @SerializedName("review_count") val numReviews: Int,
+        @SerializedName("open_now")val openNow: Boolean,
         @SerializedName("distance")val distanceInMeters: Double,
         @SerializedName("image_url") val imageUrl: String,
         val categories: List<YelpCategory>,
