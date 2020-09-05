@@ -17,7 +17,6 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.amexhack.yelpapi.Review;
 import com.example.amexhack.yelpapi.YelpBusiness;
-import com.example.amexhack.yelpapi.YelpImages;
 import com.example.amexhack.yelpapi.YelpReview;
 import com.example.amexhack.yelpapi.YelpReviewsOfPlace;
 import com.example.amexhack.yelpapi.YelpService;
@@ -69,6 +68,7 @@ public class InformationAboutPlace extends AppCompatActivity {
     private String TAG = "InfoAboutPlace";
 
     public static int REQUEST_IMAGE_TO_TAKE = 1;
+    //= "7fnq7-pePPEM2WaZ4CLg0g"
 
 
     @Override
@@ -87,62 +87,96 @@ public class InformationAboutPlace extends AppCompatActivity {
 
         prices = findViewById(R.id.priceOfThisBusiness);
 
-
-            slideModelList.add(new SlideModel(R.drawable.coffee_image,"DEPARTMENT OF COFFEE AND SOCIAL AFFAIRS", ScaleTypes.CENTER_CROP));
-            slideModelList.add(new SlideModel(R.drawable.coffee_image_2,"DEPARTMENT OF COFFEE AND SOCIAL AFFAIRS", ScaleTypes.CENTER_CROP));
-            slideModelList.add(new SlideModel(R.drawable.coffee_image_3,"DEPARTMENT OF COFFEE AND SOCIAL AFFAIRS", ScaleTypes.CENTER_CROP));
-
-            imageSlider.setImageList(slideModelList, ScaleTypes.CENTER_CROP);
+        String word = viewThisPage.getString(myPreference, "");
+        System.out.println(word);
 
 
+        if (word.equals("Department of Coffee")){
+            id = "7fnq7-pePPEM2WaZ4CLg0g";
 
-//        else {
-//            id = viewThisPage.getString(myPreference, "");
-//
-//
-//            Retrofit retrofit2 = new Retrofit.Builder()
-//                    .baseUrl(BASE_URL + id )
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .build();
-//
-//            YelpService yelpService2 = retrofit2.create(YelpService.class);
-//
-//            yelpService2.searchBusinessDetails("Bearer " + API_KEY).enqueue(new Callback<YelpBusiness>() {
-//
-//                @Override
-//                public void onResponse(Call<YelpBusiness> call, Response<YelpBusiness> response) {
-//                    Log.i(TAG, "onResponse " + response);
-//                    YelpBusiness result = response.body();
-//
-//                    if (result == null) {
-//                        Log.w(TAG, "Did not receive valid response");
-//                        return;
-//
-//                    }
-//                    String name = result.getName();
-//                    List<String> photos = result.getPhotos();
-//                    System.out.println(photos);
-//                    Double rating = result.getRating();
-//                    String price = result.getPrice();
-//                    System.out.println("hmm");
-//                    String open = result.getHours().getOpen().get(0).getStart();
-//                    String end = result.getHours().getOpen().get(0).getEnd();
-//
-//                    setOnToScreen(name, photos, rating, price, open, end);
-//
-//
-//
-//                    //For each review call the inflator function and display on screen
-//                }
-//
-//                @Override
-//                public void onFailure(Call<YelpBusiness> call, Throwable t) {
-//                    Log.i(TAG, "onFailure " + t);
-//
-//                }
-//            });
 
-        
+//            System.out.println("IN DEPT OF COFFEE");
+//
+//            slideModelList.add(new SlideModel(R.drawable.coffee_image, "DEPARTMENT OF COFFEE AND SOCIAL AFFAIRS", ScaleTypes.CENTER_CROP));
+//        slideModelList.add(new SlideModel(R.drawable.coffee_image_2, "DEPARTMENT OF COFFEE AND SOCIAL AFFAIRS", ScaleTypes.CENTER_CROP));
+//        slideModelList.add(new SlideModel(R.drawable.coffee_image_3, "DEPARTMENT OF COFFEE AND SOCIAL AFFAIRS", ScaleTypes.CENTER_CROP));
+//
+//        imageSlider.setImageList(slideModelList, ScaleTypes.CENTER_CROP);
+    }
+
+
+
+        else {
+            id = viewThisPage.getString(myPreference, "");
+        }
+
+
+            Retrofit retrofit2 = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            YelpService yelpService2 = retrofit2.create(YelpService.class);
+
+            yelpService2.searchBusinessDetails(id, "Bearer " + API_KEY).enqueue(new Callback<YelpBusiness>() {
+
+                @Override
+                public void onResponse(Call<YelpBusiness> call, Response<YelpBusiness> response) {
+                    Log.i(TAG, "onResponse " + response);
+                    YelpBusiness result = response.body();
+
+                    if (result == null) {
+                        Log.w(TAG, "Did not receive valid response");
+                        return;
+
+                    }
+                    System.out.println(result);
+                    String name = result.getName();
+                    List<String> photos = result.getPhotos();
+                    System.out.println(photos);
+                    Double rating = result.getRating();
+                    String price = result.getPrice();
+                    System.out.println("hmm");
+                    String open = result.getHours().get(0).getOpen().get(0).getStart();
+                    String end = result.getHours().get(0).getOpen().get(0).getEnd();
+                    int index = 1;
+                    String openString = open.substring(0, index + 1)
+                            + ":"
+                            + open.substring(index + 1);
+
+                    String endString = end.substring(0, index + 1)
+                            + ":"
+                            + end.substring(index + 1);
+
+
+                    ratings.setText(rating.toString());
+
+                    prices.setText(price);
+
+                    //openingTimes.setText("Opens at: "+open+"to"+ end);
+                    List<SlideModel> slideModelList = new ArrayList<>();
+
+                    for (String image: photos){
+                        slideModelList.add(new SlideModel(image, name, ScaleTypes.CENTER_CROP));
+                    }
+
+                    imageSlider.setImageList(slideModelList, ScaleTypes.CENTER_CROP);
+
+
+                    //For each review call the inflator function and display on screen
+
+                    openingTimes.setText("Opens: "+openString + " to "+endString);
+                }
+
+                @Override
+                public void onFailure(Call<YelpBusiness> call, Throwable t) {
+                    Log.i(TAG, "onFailure " + t);
+
+                }
+            });
+
+
+
 
 
 
@@ -175,7 +209,9 @@ public class InformationAboutPlace extends AppCompatActivity {
 
     }
 
-    public void setOnToScreen(String name, List<String> photos, Double rating, String prices, String open, String end){
+    public void setOnToScreen(String name, List<String> photos, Double rating, String pricing, String open, String end){
+
+
 
 
 
@@ -199,6 +235,9 @@ public class InformationAboutPlace extends AppCompatActivity {
         startActivity(changePage);
 
     }
+
+
+
 
 
 

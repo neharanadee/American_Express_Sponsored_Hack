@@ -56,13 +56,11 @@ data class YelpBusiness(
         val name: String,
         val rating: Double,
         val price: String,
-        val hours: YelpBusinessHours
+        val hours: List<YelpBusinessHours>
 )
 
 
-data class YelpImages(
-        @SerializedName("image_url")val imageUrl: String
-)
+
 
 data class YelpBusinessHours(
         val open: List<OpenTimes>

@@ -3,6 +3,7 @@ package com.example.amexhack.yelpapi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,7 +29,15 @@ public class Review extends AppCompatActivity {
     private String TAG = "MainActivity";
     private String API_KEY = "LWAv17INzFEQdx0yv-OisJHiqJnSRtRA3nHr_IJVfNgPWCWY0D_8y85km7Ifo6NtWROpFfk8JLAKFxbqS6gyXaFWMPvrTrAg8Gh9SwEXYnixrKzUwqMaar5g9yNRX3Yx";
 
-    private String id = "7fnq7-pePPEM2WaZ4CLg0g";
+    private String id;
+
+    private SharedPreferences viewThisPage;
+
+    SharedPreferences.Editor viewThisPageEditor;
+
+    private static final String myPreference = "viewThisPage";
+
+
 
 
     ArrayList<YelpReview> reviews = new ArrayList<>();
@@ -44,6 +53,20 @@ public class Review extends AppCompatActivity {
         setContentView(R.layout.activity_review);
 
         reviewScroller = findViewById(R.id.reviewsScrollView);
+
+        viewThisPage = this.getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        viewThisPageEditor = viewThisPage.edit();
+
+        String word = viewThisPage.getString(myPreference, "");
+        System.out.println(word);
+
+        if (word.contains("Department of Coffee")){
+            id = "7fnq7-pePPEM2WaZ4CLg0g";
+        }
+        else{
+            id = viewThisPage.getString(myPreference, "");
+        }
+
 
 
 

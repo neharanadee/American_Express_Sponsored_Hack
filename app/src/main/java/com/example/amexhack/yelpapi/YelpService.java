@@ -3,7 +3,9 @@ package com.example.amexhack.yelpapi;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 public interface YelpService {
 
@@ -21,8 +23,8 @@ public interface YelpService {
     @GET("reviews")
     public Call<YelpReviewsOfPlace> searchReviews(@Header("Authorization") String authHeader);
 
-    @GET(" ")
-    public Call<YelpBusiness> searchBusinessDetails(@Header("Authorization") String authHeader);
+    @GET("{id}")
+    public Call<YelpBusiness> searchBusinessDetails(@Path(value = "id", encoded = true)String id, @Header("Authorization") String authHeader);
 
 
 }
