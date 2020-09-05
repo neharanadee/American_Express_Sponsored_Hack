@@ -10,10 +10,11 @@
         android:layout_height="wrap_content"
         android:background="@drawable/layout_bg"
         android:orientation="vertical"
+        android:padding="5dp"
         >
 
 
-        <ImageView
+        <com.denzcoskun.imageslider.ImageSlider
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:id="@+id/imageOfPlace"
@@ -38,6 +39,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/moreInfoButton"
             android:text="Click to find more information" />
 
 

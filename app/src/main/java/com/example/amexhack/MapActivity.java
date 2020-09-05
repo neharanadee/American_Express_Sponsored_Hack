@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.amexhack.yelpapi.YelpRestaurant;
 import com.example.amexhack.yelpapi.YelpSearchResult;
 import com.example.amexhack.yelpapi.YelpService;
@@ -147,6 +151,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         itineraryScroller = findViewById(R.id.scrollerForItinerary);
 
         //SET UP ARRAY TO TEST OUT ITINERARY DISPLAY
+        //Access from AllPlaces
 
         placesToVisit.add("Department of Coffee and Social Affairs");
         placesToVisit.add("Apple Regent Centre");
@@ -202,14 +207,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
 
-            for (int x =0; x<placesToVisit.size(); x++){
+            for (Place place: AllPlaces){
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
                 YelpService yelpService = retrofit.create(YelpService.class);
-                yelpService.searchRestaurants("Bearer "+ API_KEY,placesToVisit.get(x), placesToVisitLocations.get(0)).enqueue(new Callback<YelpSearchResult>() {
+                //yelpService.searchRestaurants("Bearer "+ API_KEY,place.name, place.latitude, place.longitude).enqueue(new Callback<YelpSearchResult>() {
+
+                yelpService.searchRestaurants("Bearer "+ API_KEY,place.name, "London").enqueue(new Callback<YelpSearchResult>() {
 
                     @Override
                     public void onResponse(Call<YelpSearchResult> call, Response<YelpSearchResult> response) {
@@ -221,17 +228,36 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             return;
 
                         }
-                        final YelpRestaurant restaurant= result.getRestaurants().get(0);
-                        System.out.println(restaurant);
 
-                        System.out.println("Name = "+ restaurant.getName());
+                        VisitingPlace visitingPlaces;
+                        System.out.println(result);
 
-                        String id = restaurant.getId();
+                        if (result.getTotal() == 0){
+                            System.out.println("in total equals 0");
+                            //placeOnToView("", place.name, true);
+                            visitingPlaces = new VisitingPlace(place.name, null, true);
 
-                        VisitingPlace visitingPlaces = new VisitingPlace(restaurant.getName(), restaurant.getImageUrl(), restaurant.getOpenNow());
 
-                        //placeOnToView(restaurant.getImageUrl(), restaurant.getName(), restaurant.getOpenNow());
+                        }
+                        else {
+
+                            final YelpRestaurant restaurant = result.getRestaurants().get(0);
+
+                            System.out.println(restaurant);
+
+                            System.out.println("Name = " + restaurant.getName());
+
+                            String id = restaurant.getId();
+
+                            visitingPlaces = new VisitingPlace(restaurant.getName(), restaurant.getImageUrl(), restaurant.getOpenNow());
+
+                            //System.out.println(visitingPlaces);
+                            //placeOnToView(restaurant.getImageUrl(), restaurant.getName(), restaurant.getOpenNow());
+
+
+                        }
                         publishProgress(visitingPlaces);
+
 
 
 
@@ -309,93 +335,111 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
 
-    public void callApi(){
-        ArrayList<VisitingPlace> visitingPlaces = new ArrayList<>();
-
-        for (int x =0; x<placesToVisit.size(); x++){
-
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-            YelpService yelpService = retrofit.create(YelpService.class);
-            yelpService.searchRestaurants("Bearer "+ API_KEY,placesToVisit.get(x), placesToVisitLocations.get(0)).enqueue(new Callback<YelpSearchResult>() {
-
-                @Override
-                public void onResponse(Call<YelpSearchResult> call, Response<YelpSearchResult> response) {
-                    Log.i(TAG, "onResponse "+response);
-                    YelpSearchResult result = response.body();
-
-                    if (result == null){
-                        Log.w(TAG, "Did not receive valid response");
-                        return;
-
-                    }
-                    final YelpRestaurant restaurant= result.getRestaurants().get(0);
-                    System.out.println(restaurant);
-
-                    System.out.println("Name = "+ restaurant.getName());
-
-                    String id = restaurant.getId();
-
-                    visitingPlaces.add(new VisitingPlace(restaurant.getName(), restaurant.getImageUrl(), restaurant.getOpenNow()));
-
-                    //placeOnToView(restaurant.getImageUrl(), restaurant.getName(), restaurant.getOpenNow());
-
-
-
-
-
-
-
-                }
-
-                @Override public void onFailure(Call<YelpSearchResult> call, Throwable t) {
-                    Log.i(TAG, "onFailure "+t);
-
-                }
-            });
-
-
-
-        }
-
-        for (VisitingPlace place : visitingPlaces){
-            //placeOnToView(place.imageURL, place.placeName, place.openNow);
-        }
-
-
-    }
+//    public void callApi(){
+//        ArrayList<VisitingPlace> visitingPlaces = new ArrayList<>();
+//
+//        for (int x =0; x<placesToVisit.size(); x++){
+//
+//            Retrofit retrofit = new Retrofit.Builder()
+//                    .baseUrl(BASE_URL)
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .build();
+//
+//            YelpService yelpService = retrofit.create(YelpService.class);
+//            yelpService.searchRestaurants("Bearer "+ API_KEY,placesToVisit.get(x), placesToVisitLocations.get(0)).enqueue(new Callback<YelpSearchResult>() {
+//
+//                @Override
+//                public void onResponse(Call<YelpSearchResult> call, Response<YelpSearchResult> response) {
+//                    Log.i(TAG, "onResponse "+response);
+//                    YelpSearchResult result = response.body();
+//
+//                    if (result == null){
+//                        Log.w(TAG, "Did not receive valid response");
+//                        return;
+//
+//                    }
+//                    final YelpRestaurant restaurant= result.getRestaurants().get(0);
+//                    System.out.println(restaurant);
+//
+//                    System.out.println("Name = "+ restaurant.getName());
+//
+//                    String id = restaurant.getId();
+//
+//                    visitingPlaces.add(new VisitingPlace(restaurant.getName(), restaurant.getImageUrl(), restaurant.getOpenNow()));
+//
+//                    //placeOnToView(restaurant.getImageUrl(), restaurant.getName(), restaurant.getOpenNow());
+//
+//
+//
+//
+//
+//
+//
+//                }
+//
+//                @Override public void onFailure(Call<YelpSearchResult> call, Throwable t) {
+//                    Log.i(TAG, "onFailure "+t);
+//
+//                }
+//            });
+//
+//
+//
+//        }
+//
+//        for (VisitingPlace place : visitingPlaces){
+//            //placeOnToView(place.imageURL, place.placeName, place.openNow);
+//        }
+//
+//
+//    }
 
 
     public void placeOnToView(String imageUrl, String placeName, Boolean openNow) {
-
-        System.out.println("AM I HERE?");
         LayoutInflater layoutInflater =
                 (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View addView = layoutInflater.inflate(R.layout.row_intinerary,null);
 
-        final ImageView imageView = addView.findViewById(R.id.imageOfPlace);
-        try {
-            URL url = new URL(imageUrl);
-            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            imageView.setImageBitmap(bmp);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        final ImageSlider imageView = addView.findViewById(R.id.imageOfPlace);
 
         final TextView placeNameTextView  = addView.findViewById(R.id.placeName);
-        placeNameTextView.setText(placeName);
 
         final TextView openTextView = addView.findViewById(R.id.openNow);
-        if (openNow){
-            openTextView.setText("Open Now");
-        }else{
-            openTextView.setText("Closed");
-        }
 
+        if (imageUrl == null){
+            placeNameTextView.setText(placeName);
+            openTextView.setText("Unfortunately no information on Yelp available at the moment");
+
+
+        }
+        else {
+
+            System.out.println("AM I HERE?");
+            List<SlideModel> slideModelList = new ArrayList<>();
+
+            slideModelList.add(new SlideModel(imageUrl, ScaleTypes.CENTER_CROP));
+            imageView.setImageList(slideModelList, ScaleTypes.CENTER_CROP);
+
+//            try {
+//                URL url = new URL(imageUrl);
+//                Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+//                imageView.setImageBitmap(bmp);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+
+
+            placeNameTextView.setText(placeName);
+
+
+            if (openNow) {
+                openTextView.setText("Open Now");
+            } else {
+                openTextView.setText("Closed");
+            }
+
+
+        }
         itineraryScroller.addView(addView);
 
 
@@ -468,6 +512,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         latlngArray = new LatLng[AllPlaces.size()];
         System.out.println("THIS IS SIZE " + AllPlaces.size());
         for (int i = 0; i < latlngArray.length; i++) {
+            System.out.println(AllPlaces.get(i).name);
 //            System.out.println("CORDSSSSSSSSSS!!!!!!!!!!!!!!!!!!!!");
             System.out.println(AllPlaces.get(i).getLatitude()  + " : " +  AllPlaces.get(i).getLongitude());
             latlngArray[i] = new LatLng( AllPlaces.get(i).getLongitude(), AllPlaces.get(i).getLatitude());
