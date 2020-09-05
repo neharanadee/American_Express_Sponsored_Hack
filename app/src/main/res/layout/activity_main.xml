@@ -6,16 +6,14 @@
     android:layout_height="match_parent"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:background="@color/DarkBlue">
+    android:background="@color/White">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="24dp"
         tools:layout_editor_absoluteY="-84dp"
         tools:ignore="MissingConstraints">
-
-
-
 
     <LinearLayout
 
@@ -27,37 +25,16 @@
         tools:layout_editor_absoluteX="20dp"
         tools:layout_editor_absoluteY="20dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Planner"
-                android:textSize="20dp"
-                android:layout_weight="1"
-                />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Memories"
-            android:textSize="20dp"
-            android:layout_weight="1"
-            android:id="@+id/memories"/>
-
-        </LinearLayout>
-
         <TextView
             android:id="@+id/textViewTitleWhatToDo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/roboto_bold"
             android:padding="2dp"
             android:text="What would you like to do today?"
-            android:textColor="@color/White"
+            android:textColor="@color/DarkDarkBlue"
             android:textSize="22sp"
             app:layout_constraintTop_toTopOf="@+id/linearLayout"
             tools:layout_editor_absoluteX="20dp" />
@@ -66,8 +43,8 @@
         android:id="@+id/scrollViewForActivities"
         android:layout_width="370dp"
         android:layout_height="500dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/layout_bg"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/stroke_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,42 +57,67 @@
             android:fadingEdge="horizontal|vertical"
             android:orientation="vertical"
             android:padding="10dp">
-
-
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/addNewActivity"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="right"
-        android:background="@drawable/circle_button"
-        android:text="+"
-        android:textColor="#37468B"
-        android:textSize="18dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp">
 
+        <Button
+            android:id="@+id/buttonToItinerary"
+            android:layout_width="315dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_bg"
+            android:fontFamily="@font/roboto_regular"
+            android:padding="5dp"
+            android:text="Get my Plan!"
+            android:textSize="20dp"
+            android:layout_marginRight="13dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.876" />
+        <Button
+            android:id="@+id/addNewActivity"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="right"
+            android:background="@drawable/circle_button"
+            android:text="+"
+            android:textColor="#37468B"
+            android:textSize="18dp"
+            app:layout_constraintTop_toBottomOf="@+id/scrollViewForActivities"
+            tools:layout_editor_absoluteX="330dp" />
 
-        app:layout_constraintTop_toBottomOf="@+id/scrollViewForActivities"
-        tools:layout_editor_absoluteX="322dp" />
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonToItinerary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Get my Plan!"
-        android:background="@drawable/layout_bg"
-        android:textSize="20sp"
-        android:fontFamily="@font/roboto_regular"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.876"
-        android:padding="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentBottom="true">
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Planner"
+                android:textSize="20dp"
+                android:layout_weight="1" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Memories"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:id="@+id/memories"/>
+
+        </LinearLayout>
 
 
 

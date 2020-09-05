@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context="com.example.amexhack.LoadPlaces">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal">
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/ic_map"/>
+    </RelativeLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_list"
@@ -14,6 +26,9 @@
         tools:ignore="MissingConstraints" />
 
 <!--    match_parent-->
+
+
+
     <Button
         android:id="@+id/buttonToMap"
         android:layout_width="wrap_content"
