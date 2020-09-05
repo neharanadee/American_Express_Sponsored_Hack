@@ -50,3 +50,26 @@ data class YelpReview(
 data class YelpUser(
         val name: String
 )
+
+data class YelpBusiness(
+        val photos: List<String>,
+        val name: String,
+        val rating: Double,
+        val price: String,
+        val hours: YelpBusinessHours
+)
+
+
+data class YelpImages(
+        @SerializedName("image_url")val imageUrl: String
+)
+
+data class YelpBusinessHours(
+        val open: List<OpenTimes>
+)
+
+data class OpenTimes(
+        val start: String,
+        val end: String
+)
+

@@ -7,6 +7,8 @@ import retrofit2.http.Query;
 
 public interface YelpService {
 
+
+
     @GET("search")
     public Call<YelpSearchResult> searchRestaurants(@Header ("Authorization") String authHeader, @Query("term")String searchTerm, @Query("latitude") Double latitude, @Query("longitude") Double longitude);
 
@@ -18,4 +20,9 @@ public interface YelpService {
     //longitude	decimal
     @GET("reviews")
     public Call<YelpReviewsOfPlace> searchReviews(@Header("Authorization") String authHeader);
+
+    @GET(" ")
+    public Call<YelpBusiness> searchBusinessDetails(@Header("Authorization") String authHeader);
+
+
 }

@@ -222,20 +222,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     public void onResponse(Call<YelpSearchResult> call, Response<YelpSearchResult> response) {
                         Log.i(TAG, "onResponse "+response);
                         YelpSearchResult result = response.body();
+                        VisitingPlace visitingPlaces;
 
                         if (result == null){
                             Log.w(TAG, "Did not receive valid response");
+                            visitingPlaces = new VisitingPlace(null,place.name, null, true);
+                            publishProgress(visitingPlaces);
                             return;
 
                         }
 
-                        VisitingPlace visitingPlaces;
+
                         System.out.println(result);
 
                         if (result.getTotal() == 0){
                             System.out.println("in total equals 0");
                             //placeOnToView("", place.name, true);
-                            visitingPlaces = new VisitingPlace(place.name, null, true);
+                            visitingPlaces = new VisitingPlace(null,place.name, null, true);
 
 
                         }
@@ -249,7 +252,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                             String id = restaurant.getId();
 
-                            visitingPlaces = new VisitingPlace(restaurant.getName(), restaurant.getImageUrl(), restaurant.getOpenNow());
+                            visitingPlaces = new VisitingPlace(restaurant.getId(),restaurant.getName(), restaurant.getImageUrl(), restaurant.getOpenNow());
 
                             //System.out.println(visitingPlaces);
                             //placeOnToView(restaurant.getImageUrl(), restaurant.getName(), restaurant.getOpenNow());
@@ -287,7 +290,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         protected void onProgressUpdate(VisitingPlace... values) {
             System.out.println("IN PROGRESSSSS");
             super.onProgressUpdate(values);
-            placeOnToView(values[0].imageURL, values[0].placeName, values[0].openNow);
+            placeOnToView(values[0].id, values[0].imageURL, values[0].placeName, values[0].openNow);
 
 
 
@@ -395,7 +398,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 //    }
 
 
-    public void placeOnToView(String imageUrl, String placeName, Boolean openNow) {
+    public void placeOnToView(String id, String imageUrl, String placeName, Boolean openNow) {
         LayoutInflater layoutInflater =
                 (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View addView = layoutInflater.inflate(R.layout.row_intinerary,null);
@@ -406,9 +409,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         final TextView openTextView = addView.findViewById(R.id.openNow);
 
+        final Button button = addView.findViewById(R.id.moreInfoButton);
+
         if (imageUrl == null){
             placeNameTextView.setText(placeName);
             openTextView.setText("Unfortunately no information on Yelp available at the moment");
+
+            button.setVisibility(View.INVISIBLE);
 
 
         }
@@ -420,14 +427,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             slideModelList.add(new SlideModel(imageUrl, ScaleTypes.CENTER_CROP));
             imageView.setImageList(slideModelList, ScaleTypes.CENTER_CROP);
 
-//            try {
-//                URL url = new URL(imageUrl);
-//                Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-//                imageView.setImageBitmap(bmp);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-
 
             placeNameTextView.setText(placeName);
 
@@ -438,6 +437,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 openTextView.setText("Closed");
             }
 
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //store id in Systems preference and then load new page.
+
+                    //myPreference;
+                    viewMoreInformationPage(id);
+
+
+                }
+            });
+
 
         }
         itineraryScroller.addView(addView);
@@ -446,6 +457,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
 
+
+    }
+
+    public void viewMoreInformationPage(String id){
+        viewThisPageEditor.putString(myPreference, id);
+        viewThisPageEditor.commit();
+
+        Intent intent = new Intent(this, InformationAboutPlace.class);
+        startActivity(intent);
 
     }
 

@@ -5,11 +5,13 @@ public class VisitingPlace {
     String placeName = "";
     String imageURL = "";
     Boolean openNow = false;
+    String id = "";
 
-    public VisitingPlace(String placeName, String imageURL, Boolean openNow){
+    public VisitingPlace(String id, String placeName, String imageURL, Boolean openNow){
         this.placeName = placeName;
         this.imageURL = imageURL;
         this.openNow = openNow;
+        this.id = id;
 
     }
 
@@ -38,5 +40,11 @@ public class VisitingPlace {
         return openNow;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
+    public String getId() {
+        return id;
+    }
 }

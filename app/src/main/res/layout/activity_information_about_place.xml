@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="24dp"
         tools:layout_editor_absoluteY="-84dp"
+        android:padding="10dp"
         >
 
         <LinearLayout
@@ -39,11 +40,26 @@
 
         </com.denzcoskun.imageslider.ImageSlider>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24dp"
+                android:id="@+id/ratingsOfThisBusiness"
+                android:text="Rating: 5 / 5"
+                ></TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24dp"
+                android:text="Price: $$"
+                android:id="@+id/priceOfThisBusiness"
+                android:layout_gravity="right"/>
+
         <TextView
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="The first Department of Coffee and Social Affairs opened on London’s iconic Leather Lane Market in late 2010. It was the culmination of 18 months work spent searching for the perfect shop and perfecting our craft. Over the last 10 years, Department of Coffee and Social Affairs has been recognised on more that one occasion as the leading coffee company in the United Kindom at the Allegra Awards, most recently in 2019. We’ve never deviated from the belief that our love and enthusiasm for quality coffee would provide new coffee experiences for our customers. We will continue to make “proper” cups of coffee rather than, well, that other stuff."
+            android:text="SAMPLE DESCRIPTION: The first Department of Coffee and Social Affairs opened on London’s iconic Leather Lane Market in late 2010. It was the culmination of 18 months work spent searching for the perfect shop and perfecting our craft. Over the last 10 years, Department of Coffee and Social Affairs has been recognised on more that one occasion as the leading coffee company in the United Kindom at the Allegra Awards, most recently in 2019. We’ve never deviated from the belief that our love and enthusiasm for quality coffee would provide new coffee experiences for our customers. We will continue to make “proper” cups of coffee rather than, well, that other stuff."
             android:textSize="18dp"
 
             />
@@ -53,6 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Opens: 8am. to 6pm."
+                android:id="@+id/openingTimesOfBusiness"
                 android:textSize="22dp"
                 />
 
