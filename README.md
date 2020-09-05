@@ -12,7 +12,7 @@ Android mobile application for American Express users that recommends AMEX small
 7. Return to the previous screen, scroll to the bottom, and tap Developer options.
 8. In the Developer options window, scroll down to find and enable USB debugging
 
-## Part I: Run the APP using APK file 
+## Option I: Run the app using APK file 
 1. Open your Android’s Settings
 2. Scroll down and tap Security
 3. Allow app installationfrom external sources. (The process might be different in different devices)
@@ -21,14 +21,14 @@ Android mobile application for American Express users that recommends AMEX small
 6. Send over the APK file to your phone 
 7. Open your Android’s file manager, locate the APK fileand install it by clicking.
 
-## Part II: Open project in Android studio
+## Option II: Open project in Android studio
 ### Installation
 1. Clone the project into a folder. 
 2. Make sure you have Android studio downloaded (https://developer.android.com/studio)
 3. Make sure you have JAVA JDK 11 downloaded (https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 
 
-## Run the app 
+### Run the app 
 1. Open Android Studio 
 2. Go to File -> Open -> Naviagte to the folder that you cloned the folder in and open app 
 3. Select your app from the run/debug configurations drop-down menu in the toolbar.
