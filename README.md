@@ -4,7 +4,7 @@ Android mobile application for American Express users that recommends AMEX small
 
 ## Live demonstration of the app
 
-https://youtu.be/ypjqgxlNZtI
+A demonstration of the app and its services, showing how a typical user may use the app: https://youtu.be/ypjqgxlNZtI
 
 ## Set up your phone 
 1. Connect your device to your development machine with a USB cable. If you developed on Windows, you might need to install the appropriate USB driver for your device.
