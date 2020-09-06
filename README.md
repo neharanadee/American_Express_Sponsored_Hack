@@ -2,6 +2,10 @@
 
 Android mobile application for American Express users that recommends AMEX small businesses that they could visit to complete their day’s tasks/itinerary 
 
+## Live demonstration of the app
+
+https://youtu.be/ypjqgxlNZtI
+
 ## Set up your phone 
 1. Connect your device to your development machine with a USB cable. If you developed on Windows, you might need to install the appropriate USB driver for your device.
 2. Perform the following steps to enable USB debugging in the Developer options window.
