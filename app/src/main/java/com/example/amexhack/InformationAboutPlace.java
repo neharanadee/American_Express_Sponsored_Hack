@@ -137,16 +137,24 @@ public class InformationAboutPlace extends AppCompatActivity {
                     Double rating = result.getRating();
                     String price = result.getPrice();
                     System.out.println("hmm");
-                    String open = result.getHours().get(0).getOpen().get(0).getStart();
-                    String end = result.getHours().get(0).getOpen().get(0).getEnd();
-                    int index = 1;
-                    String openString = open.substring(0, index + 1)
-                            + ":"
-                            + open.substring(index + 1);
+                    String openString = "";
+                    String endString = "";
 
-                    String endString = end.substring(0, index + 1)
-                            + ":"
-                            + end.substring(index + 1);
+                    if (result.getHours() != null){
+                        String open = result.getHours().get(0).getOpen().get(0).getStart();
+                        String end = result.getHours().get(0).getOpen().get(0).getEnd();
+                        int index = 1;
+                        openString = open.substring(0, index + 1)
+                                + ":"
+                                + open.substring(index + 1);
+
+                        endString = end.substring(0, index + 1)
+                                + ":"
+                                + end.substring(index + 1);
+
+                    }
+
+
 
 
                     ratings.setText(rating.toString());
