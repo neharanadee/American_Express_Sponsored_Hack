@@ -18,8 +18,9 @@ Android mobile application for American Express users that recommends AMEX small
 3. Allow app installation from external sources. (The process might be different in different devices)
 4. Connect the Android device to the PC using a USB cable
 5. Tap the USB for... notification on your Android and choose Transfer files
-6. Send over the APK file to your phone 
-7. Open your Android’s file manager, locate the APK file and install it by clicking.
+6. Locate APK file in location AMEX_Hack/app/build/outputs/apk/debug/app-debug.apk
+7. Send over the APK file to your phone 
+8. Open your Android’s file manager, locate the APK file and install it by clicking.
 
 ## Option II: Open project in Android studio
 ### Installation
